@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import '../model/transaction.dart';
 import '../widgets/card_header.dart';
-import '../widgets/card.dart';
 import '../widgets/header.dart';
 import '../widgets/transaction_card.dart';
 import '../widgets/card_bottom_nav.dart';
+import '../widgets/card.dart';
 
 class CardsScreen extends StatelessWidget {
-  final List<String> cardImages = [
-    'assets/card1.jpg',
-    'assets/card2.jpg',
-    'assets/card3.jpg',
+  final List<String> cardImageUrls = [
+    'https://www.lhv.ee/assets/images/cards/credit-pink.png',
+    'https://www.lhv.ee/assets/images/cards/credit-pink.png',
+    'https://www.lhv.ee/assets/images/cards/credit-pink.png',
   ];
 
   final List<Transaction> transactions = [
@@ -45,14 +45,14 @@ class CardsScreen extends StatelessWidget {
                       children: [
                         const CardsHeader(),
                         const SizedBox(height: 24),
-                        CardCarousel(cardImages: cardImages),
+                        CardCarousel(cardImageUrls: cardImageUrls),
                         const SizedBox(height: 32),
                         const ActivityHeader(),
                         const SizedBox(height: 16),
                         ...transactions
                             .map((txn) => TransactionTile(txn: txn))
                             .toList(),
-                        const Spacer(), 
+                        const Spacer(),
                       ],
                     ),
                   ),
