@@ -30,7 +30,7 @@ class FirestoreSeederScreen extends StatelessWidget {
     });
     await firestore.collection('categories').add({
       'name': 'More',
-      'imageUrl': 'https://raw.githubusercontent.com/anfa-majid/appdev_final/refs/heads/main/appdev_final/assets/dots-three-outline.svg?raw=true',
+      'imageUrl': 'https://github.com/anfa-majid/appdev_final/blob/main/appdev_final/assets/threedots.png?raw=true',
     });
 
     await firestore.collection('products').add({
