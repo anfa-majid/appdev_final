@@ -21,6 +21,7 @@ class HomeScreen extends StatelessWidget {
               } else if (state is Loaded) {
                 return ListView(
                   children: [
+                    // Banner slider
                     CarouselSlider(
                       options: CarouselOptions(height: 180.0, autoPlay: true),
                       items: state.banners.map((banner) {
@@ -33,6 +34,8 @@ class HomeScreen extends StatelessWidget {
                         );
                       }).toList(),
                     ),
+
+                    // Category list
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 16.0, horizontal: 8.0),
@@ -65,6 +68,8 @@ class HomeScreen extends StatelessWidget {
                         },
                       ),
                     ),
+
+                    // Popular products
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 16.0, horizontal: 8.0),
