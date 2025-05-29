@@ -1,27 +1,32 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../model/model.dart';
+import '../model/banner.dart';
+import '../model/category.dart';
+import '../model/product.dart';
 
-// Handles all Firebase interactions for Todos
-class TodoRepository {
-  final CollectionReference todoCollection =
-      FirebaseFirestore.instance.collection('todos');
+class Repository {
+  final _firestore = FirebaseFirestore.instance;
 
-  Future<List<Todo>> fetchTodos() async {
-    final snapshot = await todoCollection.get();
+  Future<List<BannerModel>> getBanners() async {
+    final snapshot = await _firestore.collection('banners').get();
     return snapshot.docs
-        .map((doc) => Todo.fromMap(doc.data() as Map<String, dynamic>, doc.id))
+        .map((doc) => BannerModel.fromFirestore(doc.data()))
         .toList();
   }
 
-  Future<void> addTodo(Todo todo) async {
-    await todoCollection.add(todo.toMap());
+  Future<List<CategoryModel>> getCategories() async {
+    final snapshot = await _firestore.collection('categories').get();
+    return snapshot.docs
+        .map((doc) => CategoryModel.fromFirestore(doc.data()))
+        .toList();
   }
 
-  Future<void> updateTodo(Todo todo) async {
-    await todoCollection.doc(todo.id).update(todo.toMap());
-  }
-
-  Future<void> deleteTodo(String id) async {
-    await todoCollection.doc(id).delete();
+  Future<List<ProductModel>> getPopularProducts() async {
+    final snapshot = await _firestore
+        .collection('products')
+        .where('isPopular', isEqualTo: true)
+        .get();
+    return snapshot.docs
+        .map((doc) => ProductModel.fromFirestore(doc.data()))
+        .toList();
   }
 }
