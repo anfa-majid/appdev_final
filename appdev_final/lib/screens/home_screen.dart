@@ -30,7 +30,6 @@ class HomeScreen extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      // Header
                       Padding(
                         padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
                         child: Row(
@@ -59,8 +58,6 @@ class HomeScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-
-                      // Search + Filter
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 8),
@@ -92,8 +89,6 @@ class HomeScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-
-                      // Categories
                       Container(
                         height: 85,
                         child: ListView.builder(
@@ -123,7 +118,6 @@ class HomeScreen extends StatelessWidget {
                           },
                         ),
                       ),
-
                       Expanded(
                         child: ListView(
                           padding: EdgeInsets.zero,
@@ -135,8 +129,6 @@ class HomeScreen extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18)),
                             ),
-
-                            // Banner Carousel
                             CarouselSlider(
                               options: CarouselOptions(
                                 height: 160,
@@ -146,27 +138,20 @@ class HomeScreen extends StatelessWidget {
                               ),
                               items: state.banners.map((banner) {
                                 return Builder(
-                                  builder: (context) => Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
+                                  builder: (context) => ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
                                     child: Stack(
+                                      fit: StackFit.expand,
                                       children: [
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          child: Image.network(
-                                            banner.imageUrl,
-                                            width: double.infinity,
-                                            fit: BoxFit.cover,
-                                            errorBuilder: (_, __, ___) =>
-                                                Icon(Icons.image_not_supported),
-                                          ),
+                                        Image.network(
+                                          banner.imageUrl,
+                                          width: double.infinity,
+                                          fit: BoxFit.cover,
+                                          errorBuilder: (_, __, ___) =>
+                                              Icon(Icons.image_not_supported),
                                         ),
                                         Container(
                                           decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
                                             gradient: LinearGradient(
                                               colors: [
                                                 Colors.black.withOpacity(0.3),
@@ -177,13 +162,14 @@ class HomeScreen extends StatelessWidget {
                                             ),
                                           ),
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(16.0),
+                                        Positioned(
+                                          left: 16,
+                                          right: 16,
+                                          bottom: 16,
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                            mainAxisSize: MainAxisSize.min,
                                             children: [
                                               const Text("Shop with",
                                                   style: TextStyle(
@@ -200,25 +186,43 @@ class HomeScreen extends StatelessWidget {
                                                   style: TextStyle(
                                                       color: Colors.white)),
                                               const SizedBox(height: 8),
-                                              Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
                                                         horizontal: 16,
                                                         vertical: 6),
-                                                decoration: BoxDecoration(
-                                                  color: Colors.pink,
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                ),
-                                                child: const Text("I want!",
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.pink,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
+                                                    ),
+                                                    child: const Text(
+                                                        "I want ->",
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white)),
+                                                  ),
+                                                  const SizedBox(width: 8),
+                                                  const Text(
+                                                    "Best offer!",
                                                     style: TextStyle(
-                                                        color: Colors.white)),
+                                                        color: Colors.black,
+                                                        // fontWeight:
+                                                        //     FontWeight.bold,
+                                                        fontSize: 12),
+                                                  ),
+                                                ],
                                               ),
-                                              const SizedBox(height: 4),
-                                              const Text("Best offer!",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 12)),
+                                              // const SizedBox(height: 4),
+                                              // const Text(
+                                              //   "Best offer!",
+                                              //   style: TextStyle(
+                                              //       color: Colors.white,
+                                              //       fontSize: 12),
+                                              // ),
                                             ],
                                           ),
                                         ),
@@ -228,7 +232,6 @@ class HomeScreen extends StatelessWidget {
                                 );
                               }).toList(),
                             ),
-
                             const Padding(
                               padding: EdgeInsets.fromLTRB(16, 24, 16, 12),
                               child: Row(
@@ -244,7 +247,6 @@ class HomeScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-
                             Container(
                               height: 260,
                               padding: const EdgeInsets.only(left: 16),
@@ -340,10 +342,27 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: Colors.pink,
+          selectedItemColor: Colors.black,
           unselectedItemColor: Colors.grey,
           currentIndex: 0,
           type: BottomNavigationBarType.fixed,
+          onTap: (index) {
+            if (index == 0) return;
+            switch (index) {
+              case 1:
+                Navigator.pushReplacementNamed(context, '/cards');
+                break;
+              case 2:
+                Navigator.pushReplacementNamed(context, '/pix');
+                break;
+              case 3:
+                Navigator.pushReplacementNamed(context, '/notes');
+                break;
+              case 4:
+                Navigator.pushReplacementNamed(context, '/extract');
+                break;
+            }
+          },
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
             BottomNavigationBarItem(
